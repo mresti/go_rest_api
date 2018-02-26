@@ -1,0 +1,9 @@
+version: "2.1"
+services:
+  api:
+    build:
+      context: .
+      args:
+        API_PORT: "8081"
+    ports:
+      - "8081:8081"
