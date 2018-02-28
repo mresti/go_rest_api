@@ -13,24 +13,24 @@ import (
 var (
 	server     *httptest.Server
 	reader     io.Reader
-	rootUrl    string
-	anyUrl     string
-	faviconUrl string
+	rootURL    string
+	anyURL     string
+	faviconURL string
 	statsURL   string
 )
 
 func init() {
 	server = httptest.NewServer(Handlers())
 
-	rootUrl = fmt.Sprintf("%s/", server.URL)
-	anyUrl = fmt.Sprintf("%s/", server.URL)
-	faviconUrl = fmt.Sprintf("%s/", server.URL)
+	rootURL = fmt.Sprintf("%s/", server.URL)
+	anyURL = fmt.Sprintf("%s/asdasd", server.URL)
+	faviconURL = fmt.Sprintf("%s/favicon.ico", server.URL)
 	statsURL = fmt.Sprintf("%s/stats", server.URL)
 }
 
 func TestRootURL(t *testing.T) {
 	reader = strings.NewReader("")
-	request, err := http.NewRequest(http.MethodGet, rootUrl, reader)
+	request, err := http.NewRequest(http.MethodGet, rootURL, reader)
 
 	res, err := http.DefaultClient.Do(request)
 
@@ -45,7 +45,7 @@ func TestRootURL(t *testing.T) {
 
 func TestRootURL_BadRequest(t *testing.T) {
 	reader = strings.NewReader("")
-	request, err := http.NewRequest(http.MethodPost, rootUrl, reader)
+	request, err := http.NewRequest(http.MethodPost, anyURL, reader)
 
 	res, err := http.DefaultClient.Do(request)
 
@@ -75,7 +75,7 @@ func TestStatsURL(t *testing.T) {
 
 func TestFaviconURL(t *testing.T) {
 	reader = strings.NewReader("")
-	request, err := http.NewRequest(http.MethodGet, faviconUrl, reader)
+	request, err := http.NewRequest(http.MethodGet, faviconURL, reader)
 
 	res, err := http.DefaultClient.Do(request)
 
@@ -84,8 +84,6 @@ func TestFaviconURL(t *testing.T) {
 	}
 
 	checkResponseCode(t, res.StatusCode, http.StatusOK)
-	expected := `{"message":"Hello T3chFest 2018!!"}`
-	checkBody(t, res.Body, expected)
 }
 
 func checkBody(t *testing.T, bodyParm io.ReadCloser, expected string) {

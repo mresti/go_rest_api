@@ -8,8 +8,6 @@ import (
 	"net/http"
 )
 
-const addr = ""
-
 type App struct {
 	Addr   string
 	Port   string
@@ -23,7 +21,7 @@ func (a *App) Initialize() {
 
 	log.Printf("API Demo is running in port: %q", *portPtr)
 	apiPort := string(*portPtr)
-	a.Addr = fmt.Sprintf("%v:%v", addr, apiPort)
+	a.Addr = fmt.Sprintf(":%v", apiPort)
 	mux := api.Handlers()
 
 	log.Printf("Now listening on %s...\n", a.Addr)

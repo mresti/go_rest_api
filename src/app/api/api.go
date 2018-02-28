@@ -14,9 +14,11 @@ var (
 func Handlers() *http.ServeMux {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/favicon.ico", nil)
 	mux.HandleFunc("/", count)
 	mux.HandleFunc("/stats", stats)
+	mux.HandleFunc("/favicon.ico", func(_ http.ResponseWriter, _ *http.Request) {})
+	//mux.HandleFunc("/favicon.ico", func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(http.StatusNoContent)})
+	//mux.Handle("/favicon.ico", http.NotFoundHandler())
 
 	return mux
 }

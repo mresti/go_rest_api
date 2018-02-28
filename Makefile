@@ -30,6 +30,10 @@ format:
 test:
 	$(GOCMD) test -v -race ./src/...
 
+.PHONY: run
+run:
+	$(GOCMD) run ./src/main.go
+
 multi: build darwin linux windows
 
 darwin:
