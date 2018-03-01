@@ -3,7 +3,6 @@ go_import_path: github.com/mresti/go_rest_api
 go:
     - "1.10"
     - 1.9.x
-    - 1.8.x
     - tip
 matrix:
   allow_failures:
@@ -23,8 +22,7 @@ script:
       --enable=gosimple
       --enable=unconvert
       --deadline=4m ./spew | tee /dev/stderr)"
-    - make                 # Run format code, run tests and build code
-    - make test # Run  tests
+    - make      # Run format code, run tests and build code
 deploy:
   provider: script
   script: curl -X POST https://goreportcard.com/checks -F 'repo=github.com/mresti/go_rest_api'
