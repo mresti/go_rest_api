@@ -23,7 +23,7 @@ func init() {
 	server = httptest.NewServer(Handlers())
 
 	rootURL = fmt.Sprintf("%s/", server.URL)
-	anyURL = fmt.Sprintf("%s/asdasd", server.URL)
+	anyURL = fmt.Sprintf("%s/invented/url", server.URL)
 	faviconURL = fmt.Sprintf("%s/favicon.ico", server.URL)
 	statsURL = fmt.Sprintf("%s/stats", server.URL)
 }
