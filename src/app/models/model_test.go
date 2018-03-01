@@ -20,3 +20,11 @@ func TestMessageAPI_marshall(t *testing.T) {
 	want := `{"message":"Hello"}`
 	testdata.TestJSONMarshal(t, d, want)
 }
+
+func TestErrorAPI_marshall(t *testing.T) {
+	d := &ErrorAPI{
+		Error: "My error",
+	}
+	want := `{"error":"My error"}`
+	testdata.TestJSONMarshal(t, d, want)
+}

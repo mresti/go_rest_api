@@ -9,23 +9,28 @@ import (
 )
 
 type App struct {
-	Addr   string
-	Port   string
-	server *http.Server
+	Addr     string
+	Port     int
+	server   *http.Server
+	handlers *http.ServeMux
+}
+
+func (a *App) readCmd() {
+	// Read arg from command line for the port.
+	portPtr := flag.Int("port", 9000, "a string")
+	flag.Parse()
+	a.Port = int(*portPtr)
 }
 
 func (a *App) Initialize() {
-	// Read arg from command line for the port.
-	portPtr := flag.String("port", "9000", "a string")
-	flag.Parse()
+	a.readCmd()
 
-	log.Printf("API Demo is running in port: %q", *portPtr)
-	apiPort := string(*portPtr)
-	a.Addr = fmt.Sprintf(":%v", apiPort)
-	mux := api.Handlers()
+	log.Printf("API is running in port: %q", a.Port)
+	a.Addr = fmt.Sprintf(":%v", a.Port)
+	a.handlers = api.Handlers()
 
 	log.Printf("Now listening on %s...\n", a.Addr)
-	a.server = &http.Server{Handler: mux, Addr: a.Addr}
+	a.server = &http.Server{Handler: a.handlers, Addr: a.Addr}
 }
 
 func (a *App) Run() {
