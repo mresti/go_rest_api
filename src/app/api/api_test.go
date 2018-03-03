@@ -33,7 +33,6 @@ func TestRootURL(t *testing.T) {
 	request, err := http.NewRequest(http.MethodGet, rootURL, reader)
 
 	res, err := http.DefaultClient.Do(request)
-
 	if err != nil {
 		t.Error(err)
 	}
@@ -48,7 +47,6 @@ func TestRootURL_BadRequest(t *testing.T) {
 	request, err := http.NewRequest(http.MethodPost, anyURL, reader)
 
 	res, err := http.DefaultClient.Do(request)
-
 	if err != nil {
 		t.Error(err)
 	}
@@ -63,7 +61,6 @@ func TestStatsURL(t *testing.T) {
 	request, err := http.NewRequest(http.MethodGet, statsURL, reader)
 
 	res, err := http.DefaultClient.Do(request)
-
 	if err != nil {
 		t.Error(err)
 	}
@@ -78,7 +75,6 @@ func TestFaviconURL(t *testing.T) {
 	request, err := http.NewRequest(http.MethodGet, faviconURL, reader)
 
 	res, err := http.DefaultClient.Do(request)
-
 	if err != nil {
 		t.Error(err)
 	}
