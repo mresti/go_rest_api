@@ -17,7 +17,7 @@ type App struct {
 
 func (a *App) readCmd() {
 	// Read arg from command line for the port.
-	portPtr := flag.Int("port", 9000, "a string")
+	portPtr := flag.Int("port", 9000, "a int")
 	flag.Parse()
 	a.Port = int(*portPtr)
 }
@@ -25,11 +25,10 @@ func (a *App) readCmd() {
 func (a *App) Initialize() {
 	a.readCmd()
 
-	log.Printf("API is running in port: %q", a.Port)
 	a.Addr = fmt.Sprintf(":%v", a.Port)
 	a.handlers = api.Handlers()
 
-	log.Printf("Now listening on %s...\n", a.Addr)
+	log.Printf("Now listening on %s\n", a.Addr)
 	a.server = &http.Server{Handler: a.handlers, Addr: a.Addr}
 }
 

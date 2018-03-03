@@ -11,6 +11,8 @@ Más información sobre la charla, en la web oficial del evento [T3chFest 2018](
     
     $ go build -o bin/api src/main.go
     
+*Nota: El makefile genera binarios para la plataforma linux, macos y windows.*
+    
 # Ejecutar API server
 
     $ make run
@@ -18,6 +20,12 @@ Más información sobre la charla, en la web oficial del evento [T3chFest 2018](
     $ go run src/main.go
     
     $ ./bin/api -port 3000        
+
+# Mostrar parámetros del binario API server
+    
+    $ ./bin/api -help
+    
+    $ ./bin/api -h
 
 # Ejecutar los tests del API server
 

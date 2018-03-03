@@ -24,7 +24,10 @@ func Handlers() *http.ServeMux {
 func count(w http.ResponseWriter, r *http.Request) {
 	log.Println("Calling count handler")
 	if r.Method != http.MethodGet {
-		respondWithError(w, http.StatusMethodNotAllowed, "Invalid HTTP Method")
+		err := models.ErrorAPI{
+			Error: http.StatusText(http.StatusMethodNotAllowed),
+		}
+		respondWithJSON(w, http.StatusMethodNotAllowed, err)
 		return
 	}
 	counter++

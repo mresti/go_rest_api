@@ -33,7 +33,6 @@ func TestRootURL(t *testing.T) {
 	request, err := http.NewRequest(http.MethodGet, rootURL, reader)
 
 	res, err := http.DefaultClient.Do(request)
-
 	if err != nil {
 		t.Error(err)
 	}
@@ -45,16 +44,15 @@ func TestRootURL(t *testing.T) {
 
 func TestRootURL_BadRequest(t *testing.T) {
 	reader = strings.NewReader("")
-	request, err := http.NewRequest(http.MethodPost, anyURL, reader)
+	request, err := http.NewRequest(http.MethodPost, rootURL, reader)
 
 	res, err := http.DefaultClient.Do(request)
-
 	if err != nil {
 		t.Error(err)
 	}
 
 	checkResponseCode(t, res.StatusCode, http.StatusMethodNotAllowed)
-	expected := `{"error":"Invalid HTTP Method"}`
+	expected := `{"error":"Method Not Allowed"}`
 	checkBody(t, res.Body, expected)
 }
 
@@ -63,7 +61,6 @@ func TestStatsURL(t *testing.T) {
 	request, err := http.NewRequest(http.MethodGet, statsURL, reader)
 
 	res, err := http.DefaultClient.Do(request)
-
 	if err != nil {
 		t.Error(err)
 	}
@@ -73,12 +70,39 @@ func TestStatsURL(t *testing.T) {
 	checkBody(t, res.Body, expected)
 }
 
+func TestStatsURL_BadRequest(t *testing.T) {
+	reader = strings.NewReader("")
+	request, err := http.NewRequest(http.MethodPost, statsURL, reader)
+
+	res, err := http.DefaultClient.Do(request)
+	if err != nil {
+		t.Error(err)
+	}
+
+	checkResponseCode(t, res.StatusCode, http.StatusMethodNotAllowed)
+	expected := `{"error":"Invalid HTTP Method"}`
+	checkBody(t, res.Body, expected)
+}
+
+func TestAnyURL_BadRequest(t *testing.T) {
+	reader = strings.NewReader("")
+	request, err := http.NewRequest(http.MethodPost, anyURL, reader)
+
+	res, err := http.DefaultClient.Do(request)
+	if err != nil {
+		t.Error(err)
+	}
+
+	checkResponseCode(t, res.StatusCode, http.StatusMethodNotAllowed)
+	expected := `{"error":"Method Not Allowed"}`
+	checkBody(t, res.Body, expected)
+}
+
 func TestFaviconURL(t *testing.T) {
 	reader = strings.NewReader("")
 	request, err := http.NewRequest(http.MethodGet, faviconURL, reader)
 
 	res, err := http.DefaultClient.Do(request)
-
 	if err != nil {
 		t.Error(err)
 	}
