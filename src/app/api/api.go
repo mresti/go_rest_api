@@ -41,7 +41,7 @@ func count(w http.ResponseWriter, r *http.Request) {
 func stats(w http.ResponseWriter, r *http.Request) {
 	log.Println("Calling stats handler")
 	if r.Method != http.MethodGet {
-		respondWithError(w, http.StatusMethodNotAllowed, http.StatusText(http.StatusMethodNotAllowed))
+		respondWithError(w, http.StatusMethodNotAllowed, "Invalid HTTP Method")
 		return
 	}
 	myVisits := models.VisitAPI{
